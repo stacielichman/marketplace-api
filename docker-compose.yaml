@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  app:
+    container_name: application
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/project
+  postgres:
+    container_name: postgres_container
+    environment:
+      POSTGRES_PASSWORD: admin
+    image: postgres
+    ports:
+      - "5432:5432"
