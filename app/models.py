@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Float, \
     Sequence, Identity, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, declarative_base
 from typing import Dict, Any, Text
 
-from database import Base
+
+Base = declarative_base()
 
 
 class User(Base):
@@ -21,18 +22,18 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False, index=True)
-    description = Column(Text(280), nullable=True, index=True)
+    description = Column(String(280), nullable=True, index=True)
 
 
 class Product(Base):
     __tablename__ = 'products'
 
-    id = Column(Integer, Sequence('product_id_seq'), primary_key=True)
+    id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False, index=True)
-    description = Column(Text(280), nullable=True, index=True)
+    description = Column(String(280), nullable=True, index=True)
     count = Column(Integer, default=0, index=True)
     price = Column(Float, default=0, index=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", backref="products")
-    category_id = Column(Integer, ForeignKey('category.id'))
+    category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref="products")
