@@ -24,11 +24,14 @@ class ProductResponse(BaseModel):
         orm_mode = True
 
 
+class CategoryCreate(BaseModel):
+    title: str
+    description: str
+
+
 class CategoryResponse(BaseModel):
     title: str
     description: str
 
     class Config:
         orm_mode = True
-
-
