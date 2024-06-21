@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "marketplace-api"
+version = "0.1.0"
+description = ""
+authors = ["Анастасия Личман <stacie.lichman@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.111.0"
+sqlalchemy = "^2.0.31"
+psycopg2-binary = {version = "^2.9.9", extras = ["postgres"]}
+isort = "^5.13.2"
+black = "^24.4.2"
+flake8 = "^7.1.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
