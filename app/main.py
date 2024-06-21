@@ -30,6 +30,11 @@ async def shutdown():
     await engine.dispose()
 
 
+@app.get("/")
+async def home():
+    return {"message": "Welcome!"}
+
+
 @app.post("/categories/", response_model=CategoryResponse)
 async def create_category(category_create: CategoryCreate) -> Category:
     """Post a category"""
