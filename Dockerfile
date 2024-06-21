@@ -1,11 +1,17 @@
-FROM python:3.9
+FROM python:3.9 as builder
 
-COPY requirements.txt /project/requirements.txt
+WORKDIR /app
 
-RUN pip install --upgrade pip
-RUN pip install -r /project/requirements.txt
+COPY poetry.lock pyproject.toml ./
 
-COPY app/ /project/app
+RUN python -m pip install --no-cache-dir poetry==1.4.2 \
+    && poetry config virtualenvs.in-project true \
+    && poetry install --without dev,test --no-interaction --no-ansi
 
-WORKDIR /project/app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+FROM python:3.9-slim
+WORKDIR /app
+
+COPY --from=builder /app /app
+COPY app ./
+
+CMD ["/app/.venv/bin/uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
