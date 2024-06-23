@@ -10,5 +10,7 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
