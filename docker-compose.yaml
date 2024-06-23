@@ -9,8 +9,6 @@ services:
       - .:/project
   postgres:
     container_name: postgres_container
-    environment:
-      POSTGRES_PASSWORD: admin
     image: postgres
     ports:
       - "5432:5432"
